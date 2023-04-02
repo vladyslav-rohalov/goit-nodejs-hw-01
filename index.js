@@ -4,29 +4,34 @@ import {
   removeContact,
   addContact,
 } from './contacts.js';
-import yargs from 'yargs';
+import { program } from 'commander';
 
-// listContacts();
-// getContactById('AeHIrLTr6JkxGE6SN-0Rw');
-// removeContact('rsKkOQUi80UsgVPCcLZZW');
-// addContact('Homer Simpson', 'homer@gmail.com', '(112) 909-2343');
+program
+  .option('-a, --action <name>', 'choose action')
+  .option('-i, --id <id>', 'user id')
+  .option('-n, --name <name>', 'user name')
+  .option('-e, --email <email>', 'user email')
+  .option('-p, --phone <phone>', 'user phone');
 
-function invokeAction({ action, id, name, email, phone }) {
+program.parse(process.argv);
+const argv = program.opts();
+
+async function invokeAction({ action, id, name, email, phone }) {
   switch (action) {
     case 'list':
-      listContacts();
+      await listContacts();
       break;
 
     case 'get':
-      getContactById(id);
+      await getContactById(id);
       break;
 
     case 'add':
-      addContact(name, email, phone);
+      await addContact(name, email, phone);
       break;
 
     case 'remove':
-      removeContact(id);
+      await removeContact(id);
       break;
 
     default:
@@ -34,4 +39,4 @@ function invokeAction({ action, id, name, email, phone }) {
   }
 }
 
-invokeAction(yargs.argv);
+invokeAction(argv);

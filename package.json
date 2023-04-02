@@ -24,7 +24,6 @@
   "type": "module",
   "dependencies": {
     "commander": "^10.0.0",
-    "nanoid": "^4.0.2",
-    "yargs": "^17.7.1"
+    "nanoid": "^4.0.2"
   }
 }
